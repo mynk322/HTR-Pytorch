@@ -25,24 +25,25 @@ IMAGE_C         = 1
 IMAGE_H         = 128
 IMAGE_W         = 32
 MAX_LEN_ALLOWED = 32
-CONV_CHANNELS   = [32, 64, 128, 128, 256]
-CONV_KERNEL     = [5, 5, 3, 3, 3, 21]
+CONV_CHANNELS   = [32, 64, 128, 128, 256, 512]
+CONV_KERNEL     = [5, 5, 3, 3, 3, 3]
 CONV_STRIDE     = [1, 1, 1, 1, 1, 1]
-CONV_PADDING    = [2, 2, 1, 1, 1, 10]
+CONV_PADDING    = [2, 2, 1, 1, 1, 1]
 BATCH_NORM      = [1, 1, 1, 1, 1, 1] # 1 means we will have a Batch Normalization Layer
 LEAKY_RELU      = [0, 0, 0, 0, 0, 0]
-DROPOUT         = [0, 0, 0, 0, 0, 0] # 0 means we will not have any Dropout
+DROPOUT         = [0.4, 0.4, 0.4, 0.4, 0.4, 0.4] # 0 means we will not have any Dropout
 MAX_POOLING     = [ 
         [(2, 2), (2, 2)], 
         [(2, 2), (2, 2)], 
         [(1, 2), (1, 2)], 
         [(1, 2), (1, 2)], 
         [(1, 2), (1, 2)], 
+        [], 
     ]
 NUM_LAYERS      = len(CONV_CHANNELS)
 
 TIME_STEPS      = 32
-RNN_INPUT_SIZE  = 256
+RNN_INPUT_SIZE  = 512
 RNN_HIDDEN_SIZE = 256
 RNN_LAYERS      = 2
 BIDIRECTIONAL   = True

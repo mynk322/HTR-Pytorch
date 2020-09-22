@@ -138,7 +138,9 @@ dmypy.json
 cython_debug/
 
 # dataset
-data/
+data/lines/
+data/words/
+data/sample/
 
 # weights
 src/Image2Text/weights/
