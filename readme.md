@@ -1,6 +1,7 @@
 # Handwritten Character Recognition
 
 A Handwritten Character Recognition Model using a CRNN model with a CTC Loss.
+This project is in progress.
 
 ## Training
 To train the model:
