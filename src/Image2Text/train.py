@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import config
 from model import Image2TextNet
 from dataset import HandWritingLinesDataset
-from preprocessing import Rescale, GreyscaleToBlackAndWhite
+from preprocessing import Rescale, GreyscaleToBlackAndWhite, TransposeImage, GaussianFiltering, AverageFiltering, MedianPool2d
 import engine
 
 # from torch.utils.tensorboard import SummaryWriter
@@ -18,6 +18,7 @@ import engine
 # writer = SummaryWriter('runs/summary/')
 
 transform = transforms.Compose([
+    TransposeImage(),
     Rescale((config.IMAGE_H, config.IMAGE_W)),
 ])
 
@@ -28,16 +29,20 @@ data = next(iter(train_dataset))
 mean, std = data["image"].mean(), data["image"].std()
 
 transform = transforms.Compose([
+    TransposeImage(),
     Rescale((config.IMAGE_H, config.IMAGE_W)),
     transforms.Normalize(mean=(mean,), std=(std,)),
-    GreyscaleToBlackAndWhite()
+#     AverageFiltering(channels=1, kernel_size=5),
+    GaussianFiltering(channels=1, kernel_size=5, sigma=1),
+    GreyscaleToBlackAndWhite(),
+#     MedianPool2d(kernel_size=5, same=True),
 ])
 
 train_dataset = HandWritingLinesDataset(train=True, transform=transform)
 test_dataset = HandWritingLinesDataset(train=False, transform=transform)
 
-train = DataLoader(train_dataset, batch_size=config.BATCH_SIZE)
-test = DataLoader(test_dataset, batch_size=config.BATCH_SIZE)
+train = DataLoader(train_dataset, batch_size=config.BATCH_SIZE, shuffle=True)
+test = DataLoader(test_dataset, batch_size=config.BATCH_SIZE, shuffle=False)
 
 print("Training Examples: %d" % (len(train_dataset)))
 print("Testing Examples:  %d" % (len(test_dataset)))
@@ -78,10 +83,10 @@ for epoch in range(config.N_EPOCHS):
     engine.validate(test, net, device)
     torch.save(net.state_dict(), "./weights/model_checkpoint_%s.pth" % (epoch))
 
-    if epoch < 3:
-        multiplier = 0.46415888336
+    if not epoch % 4 == 0:
+        multiplier = 1
     else:
-        multiplier = 0.95
+        multiplier = 0.1
 
     for g in optimizer.param_groups:
         g['lr'] *= multiplier

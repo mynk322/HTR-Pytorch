@@ -24,14 +24,15 @@ RESNET_TRAIN    = False
 IMAGE_C         = 1
 IMAGE_H         = 128
 IMAGE_W         = 32
+MIN_LEN_ALLOWED = 2
 MAX_LEN_ALLOWED = 32
-CONV_CHANNELS   = [32, 64, 128, 128, 256, 512]
-CONV_KERNEL     = [5, 5, 3, 3, 3, 3]
+CONV_CHANNELS   = [32, 64, 128, 128, 256]
+CONV_KERNEL     = [7, 5, 5, 3, 3, 3]
 CONV_STRIDE     = [1, 1, 1, 1, 1, 1]
-CONV_PADDING    = [2, 2, 1, 1, 1, 1]
+CONV_PADDING    = [3, 2, 2, 1, 1, 1]
 BATCH_NORM      = [1, 1, 1, 1, 1, 1] # 1 means we will have a Batch Normalization Layer
 LEAKY_RELU      = [0, 0, 0, 0, 0, 0]
-DROPOUT         = [0.4, 0.4, 0.4, 0.4, 0.4, 0.4] # 0 means we will not have any Dropout
+DROPOUT         = [0, 0, 0, 0, 0, 0] # 0 means we will not have any Dropout
 MAX_POOLING     = [ 
         [(2, 2), (2, 2)], 
         [(2, 2), (2, 2)], 
@@ -43,7 +44,7 @@ MAX_POOLING     = [
 NUM_LAYERS      = len(CONV_CHANNELS)
 
 TIME_STEPS      = 32
-RNN_INPUT_SIZE  = 512
+RNN_INPUT_SIZE  = 256
 RNN_HIDDEN_SIZE = 256
 RNN_LAYERS      = 2
 BIDIRECTIONAL   = True
@@ -60,3 +61,5 @@ TEST_SIZE       = 4096
 TEST_BATCHES    = TEST_SIZE // BATCH_SIZE
 DATASET_PATH    = "../../data/words/"
 DEVICE = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+
+# Use Models from Epochs 37 and above

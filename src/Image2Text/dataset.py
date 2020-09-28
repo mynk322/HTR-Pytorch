@@ -21,7 +21,7 @@ class HandWritingLinesDataset(Dataset):
         self.line_data = np.array(pd.read_csv(path + "text_data.csv").to_numpy())
         # self.line_data = self.line_data[:64]
 
-        self.line_data = [[name, text] for (name, text) in self.line_data if len(text) <= config.MAX_LEN_ALLOWED]
+        self.line_data = self.filter_examples(self.line_data)
         self.line_data = np.array(self.line_data)
 
         if train == True:
@@ -80,3 +80,10 @@ class HandWritingLinesDataset(Dataset):
         text = text.replace("&quot;", "\"")
         text = text.replace("&amp;", "&")
         return text
+
+    def filter_examples(self, line_data):
+        line_data = [
+            [name, text] for (name, text) in line_data 
+            if len(text) >= config.MIN_LEN_ALLOWED and len(text) <= config.MAX_LEN_ALLOWED
+        ]
+        return line_data
