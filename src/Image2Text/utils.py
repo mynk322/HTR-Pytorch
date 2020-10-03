@@ -1,5 +1,5 @@
 import torch
-import config
+from Image2Text import config
 
 def stringToClasses(x):
     return torch.tensor(

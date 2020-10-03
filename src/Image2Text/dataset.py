@@ -11,7 +11,7 @@ from torchvision import transforms
 import pandas as pd
 import numpy as np
 
-import config
+from Image2Text import config
 
 # path of the dataset
 path = config.DATASET_PATH

@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torchvision
 
-import config
+from Image2Text import config
 
 from collections import OrderedDict
 

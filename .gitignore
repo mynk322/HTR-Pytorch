@@ -140,10 +140,6 @@ cython_debug/
 # dataset
 data/lines/
 data/words/
-data/sample/
-
-# weights
-src/Image2Text/weights/
 
 # Tensorboard
 src/Image2Text/runs/

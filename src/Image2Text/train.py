@@ -7,11 +7,11 @@ from torch.optim.lr_scheduler import StepLR
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 
-import config
-from model import Image2TextNet
-from dataset import HandWritingLinesDataset
-from preprocessing import Rescale, GreyscaleToBlackAndWhite, TransposeImage, GaussianFiltering, AverageFiltering, MedianPool2d
-import engine
+from Image2Text import config
+from Image2Text.model import Image2TextNet
+from Image2Text.dataset import HandWritingLinesDataset
+from Image2Text.preprocessing import Rescale, GreyscaleToBlackAndWhite, TransposeImage, GaussianFiltering, AverageFiltering, MedianPool2d
+from Image2Text import engine
 
 # from torch.utils.tensorboard import SummaryWriter
 

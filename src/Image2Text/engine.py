@@ -5,7 +5,7 @@ from tqdm import tqdm
 import editdistance
 from random import randint
 
-import config, utils
+from Image2Text import config, utils
 
 def loss_fn(outputs, targets, device):
     outputs = outputs.to(device)

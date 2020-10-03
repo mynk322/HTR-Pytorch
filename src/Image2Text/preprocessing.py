@@ -6,7 +6,7 @@ import torch.nn.functional as F
 from torch.nn.modules.utils import _pair, _quadruple
 from skimage import transform
 
-import config
+from Image2Text import config
 
 class Rescale(object):
     def __init__(self, output_size):
@@ -152,3 +152,9 @@ class MedianPool2d(nn.Module):
         x = x.contiguous().view(x.size()[:4] + (-1,)).median(dim=-1)[0]
         x = x.squeeze(0)
         return x
+
+class NumpyToTensor(object):
+    def __init__(self):
+        return
+    def __call__(self, image):
+        return torch.Tensor(image.float())
